@@ -10,8 +10,8 @@ let ispisS = document.getElementById("ispisS");
 // promenljive
 let sat = null;
 let tenSekunde = 0;
-let sekunde = 0;
-let min = 0;
+let sekunde = "00"; // ne moze ovako da ostane
+let min = "00";
 
 btn1.addEventListener("click", function () {
     clearInterval(sat);
