@@ -1,8 +1,6 @@
-// Button
-let btn1 = document.getElementById("btn1");
-let btn2 = document.getElementById("btn2");
-let btn3 = document.getElementById("btn3");
-// Ispis
+// DOM
+let container = document.querySelector(".container");
+let ispis = document.querySelector(".ispis");
 let p = document.querySelector("p");
 let ispisH = document.getElementById("ispisH");
 let ispisM = document.getElementById("ispisM");
@@ -10,51 +8,52 @@ let ispisS = document.getElementById("ispisS");
 // promenljive
 let sat = null;
 let tenSekunde = 0;
-let sekunde = "00"; // ne moze ovako da ostane
-let min = "00";
+let sekunde = 0;
+let min = 0;
+let br = 0;
 
-btn1.addEventListener("click", function () {
-    clearInterval(sat);
+container.addEventListener("click", function (e) {
+    e.preventDefault();
 
-    sat = setInterval(() => {
-        tenSekunde++;
-        if (tenSekunde == 100) {
-            sekunde++;
-            if (sekunde == 60) {
-                min++;
-                if (min < 10) {
-                    min = "0" + min;
+    if (e.target.id === "btn1") {
+        clearInterval(sat);
+        sat = setInterval(() => {
+            tenSekunde++;
+            if (tenSekunde === 100) {
+                sekunde++;
+                if (sekunde === 60) {
+                    min++;
+                    sekunde = 0;
                 }
-                sekunde = 0;
+                tenSekunde = 0;
             }
-            else if (sekunde < 10) {
-                sekunde = "0" + sekunde;
-            }
-            tenSekunde = 0;
-        }
-        else if (tenSekunde < 10) {
-            tenSekunde = "0" + tenSekunde;
-        }
+            tenSekunde = String(tenSekunde).padStart(2, "0");
+            sekunde = String(sekunde).padStart(2, "0");
+            min = String(min).padStart(2, "0");
 
-        ispisS.innerHTML = tenSekunde;
-        ispisM.innerHTML = sekunde;
-        ispisH.innerHTML = min;
+            ispisS.innerHTML = tenSekunde;
+            ispisM.innerHTML = sekunde;
+            ispisH.innerHTML = min;
 
+        }, 1000 / 100);
+        btn1.disabled = true;
+        btn1.style.backgroundColor = "#ade796";
+        btn1.style.color = "white";
+    }
 
-    }, 10);
-    btn1.disabled = true;
-    btn1.style.backgroundColor = "#ade796";
-    btn1.style.color = "rgb(255, 252, 222)";
-});
-
-btn2.addEventListener("click", function (e) {
-    e.preventDefault();
-    clearInterval(sat);
-    btn1.disabled = false;
-    btn1.style.backgroundColor = "rgb(255, 252, 222)";
-    btn1.style.color = "#78df50";
-});
-btn3.addEventListener("click", function (e) {
-    e.preventDefault();
-    document.location.reload();
+    else if (e.target.id === "btn2") {
+        clearInterval(sat);
+        btn1.disabled = false;
+        btn1.style.backgroundColor = "white";
+        btn1.style.color = "#78df50";
+    }
+    else if (e.target.id === "btn3") {
+        document.location.reload();
+    }
+    else if (e.target.id === "btn4") {
+        br++;
+        let p1 = document.createElement("p");
+        p1.innerHTML += `<p>${br}.time </p> <span>${p.innerHTML}</span>`;
+        ispis.prepend(p1);
+    }
 });

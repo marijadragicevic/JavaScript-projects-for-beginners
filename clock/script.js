@@ -31,7 +31,7 @@ btn1.addEventListener("click", function (e) {
     let input1Value = parseInt(input1.value);
     let input2Value = parseInt(input2.value);
     if (input1Value < 0 || input1Value >= 24 || input2Value < 0 || input2Value > 60) {
-        alert(`Pogresan unos`);
+        alert(`Wrong input!`);
     }
     else {
         if (isNaN(input1Value)) {
